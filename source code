@@ -1,0 +1,74 @@
+function processData(input) {
+// zmiana inputa, kótry jest stringiem na intigery
+   var wejscie=input;
+   var pieces=wejscie.split('\n');// dzielimy stringa na osobne elementy po przejsciu do nowej linii
+    for(var x=0; x<pieces.length; x++)
+    {   
+        //console.log(pieces[x]);// wypisujemy zmienne 
+        //console.log(pieces[1]);
+    }
+   
+   // przypisujemy wartości do zmiennych
+var n =parseInt(pieces[0]);// konwersja stringa na intigera
+var A =pieces[1].split(' '); // pocięcie stringa po spracjach i otrzymanie obiektu
+var B= pieces[2].split(' ');
+//console.log(typeof(n));
+//console.log(typeof(A));
+//console.log(A[1]);
+var sum=0;
+var C =[]; // The array that will contain the arrays
+var D=[];
+var S=n;    //szukana liczba ruchów
+  
+  
+for (var i = 0; i < n; i++) {
+    C[i] = []; // "Inner array"
+    sum=0; //zerujemy wartość "1" w kolejnych tablicach C[i]
+    for (var j = 0; j < n; j++) {
+        C[i][j] = euclid(A[i], B[j]); // szukamy nwd dla każdej pary 
+      if(C[i][j]===1)// liczymy ile jest "1" dla jednej iteracji
+      {
+        sum++;
+      }
+     
+    } 
+  D.push(sum);//zapisujemy wartości do tablicy
+  //console.log(C[i]);
+
+}
+//console.log(D);
+// obliczmay ilość możliwych ruchów sprawdzamy każdy element tablicy D i porównujemy z wartością n, jeśli D[i]=n wtedy dana liczba
+//jest pierwsza ze wszytkimi elementami tablicy dlatego nie można znaleźć dla niej pary - jeden ruch mniej.
+for (var k=0;k<n;k++){
+  if (D[k]===n){
+    S--;
+  }
+}
+console.log(S);// wysyłamy ilość ruchów
+ 
+ //algorytm euklidesa - liczenie wartości NWD dla pary liczb.   
+ 
+function euclid(a, b) {
+    while (a != b) {
+        if(a>b){
+          a=a-b;
+        }
+      else {
+        b=b-a;
+      }
+    }
+    return a;
+}    
+        
+} 
+
+process.stdin.resume();
+process.stdin.setEncoding("ascii");
+_input = "";
+process.stdin.on("data", function (input) {
+    _input += input;
+});
+
+process.stdin.on("end", function () {
+   processData(_input);
+});
